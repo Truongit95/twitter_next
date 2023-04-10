@@ -1,41 +1,44 @@
 import { useCallback, useState } from "react";
-import useLoginModal from "../../hook/useLoginModal";
 import useRegisterModal from "../../hook/useRegisterModal";
+import useLoginModal from "../../hook/useLoginModal";
 
 import Input from "../Input";
 import Modal from "../Modal";
 
-const LoginModal = () => {
+const RegisterModal = () => {
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [userName, setUserName] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const onToggle = useCallback(
+    () => {
+      if (loading) return;
+      registerModal.onClose();
+      loginModal.onOpen();
+    },
+    [loading, registerModal, loginModal]
+  );
 
   const onSubmit = useCallback(
     () => {
       try {
         setLoading(true);
 
-        // todo app login
+        // todo register and login
         // await login ....
-        loginModal.onClose();
+        registerModal.onClose();
       } catch (error) {
         console.log(error);
       } finally {
         setLoading(false);
       }
     },
-    [loginModal]
-  );
-
-  const onToggle = useCallback(
-    () => {
-      if (loading) return;
-      loginModal.onClose();
-      registerModal.onOpen();
-    },
-    [loading, registerModal, loginModal]
+    [registerModal]
   );
 
   const bodyContent = (
@@ -44,6 +47,18 @@ const LoginModal = () => {
         placeholder="Email"
         onChange={e => setEmail(e.target.value)}
         value={email}
+        disabled={loading}
+      />
+      <Input
+        placeholder="Name"
+        onChange={e => setName(e.target.value)}
+        value={name}
+        disabled={loading}
+      />
+      <Input
+        placeholder="Username"
+        onChange={e => setUserName(e.target.value)}
+        value={userName}
         disabled={loading}
       />
       <Input
@@ -58,12 +73,12 @@ const LoginModal = () => {
   const footerContent = (
     <div className="text-neutral-400 text-center mt-4">
       <p>
-        First time using tweeter?
+        Already have an account?
         <span
           onClick={onToggle}
           className="text-white cursor-pointer hover:underline"
         >
-          {" "}Create an account
+          {" "}Sign in
         </span>
       </p>
     </div>
@@ -72,14 +87,14 @@ const LoginModal = () => {
   return (
     <Modal
       disabled={loading}
-      isOpen={loginModal.isOpen}
-      title="Login"
-      actionLabel="Sign in"
-      onClose={loginModal.onClose}
+      isOpen={registerModal.isOpen}
+      title="Create an user"
+      actionLabel="Register"
+      onClose={registerModal.onClose}
       onSubmit={onSubmit}
       body={bodyContent}
       footer={footerContent}
     />
   );
 };
-export default LoginModal;
+export default RegisterModal;
