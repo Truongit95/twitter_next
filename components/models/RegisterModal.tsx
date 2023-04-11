@@ -34,7 +34,7 @@ const RegisterModal = () => {
         await axios.post("/api/register", {
           email,
           password,
-          username:userName,
+          username: userName,
           name
         });
 
@@ -43,7 +43,7 @@ const RegisterModal = () => {
         signIn("credentials", {
           email,
           password,
-          userName,
+          username: userName,
           name
         });
 
