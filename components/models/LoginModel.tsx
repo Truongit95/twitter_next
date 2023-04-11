@@ -1,4 +1,6 @@
 import { useCallback, useState } from "react";
+import { signIn } from "next-auth/react";
+
 import useLoginModal from "../../hook/useLoginModal";
 import useRegisterModal from "../../hook/useRegisterModal";
 
@@ -13,12 +15,15 @@ const LoginModal = () => {
   const [loading, setLoading] = useState(false);
 
   const onSubmit = useCallback(
-    () => {
+    async () => {
       try {
         setLoading(true);
 
-        // todo app login
-        // await login ....
+        await signIn("credentials", {
+          email,
+          password
+        });
+
         loginModal.onClose();
       } catch (error) {
         console.log(error);
@@ -26,7 +31,7 @@ const LoginModal = () => {
         setLoading(false);
       }
     },
-    [loginModal]
+    [loginModal, email, password]
   );
 
   const onToggle = useCallback(
@@ -48,6 +53,7 @@ const LoginModal = () => {
       />
       <Input
         placeholder="Password"
+        type="password"
         onChange={e => setPassword(e.target.value)}
         value={password}
         disabled={loading}
