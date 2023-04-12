@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import prisma from "../../../libs/prismadb";
 import { NextApiRequest, NextApiResponse } from "next";
+import useGlobal from "../../../hook/useGlobal";
 
 export default async function handle(
   req: NextApiRequest,

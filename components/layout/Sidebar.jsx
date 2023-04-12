@@ -6,10 +6,10 @@ import { signOut } from "next-auth/react";
 import SidebarItem from "./SidebarItem";
 import SidebarLogo from "./SidebarLogo";
 import SidebarTweetButton from "./SidebarTweetButton";
-import useCurrentUser from "../../hook/useCurrentUser";
+import useGlobal from "../../hook/useGlobal";
 
 const Sidebar = () => {
-  const { data: currentUser } = useCurrentUser();
+  const { isLogin } = useGlobal();
 
   const items = [
     {
@@ -44,7 +44,7 @@ const Sidebar = () => {
               auth={item.auth}
             />
           ))}
-          {currentUser && (
+          {isLogin && (
             <SidebarItem
               onClick={() => signOut()}
               icon={BiLogOut}

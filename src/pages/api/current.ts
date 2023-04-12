@@ -7,6 +7,7 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
     }
 
     try {
+
         const { currentUser } = await serverAuth(req);
         return res.status(200).json(currentUser);
 

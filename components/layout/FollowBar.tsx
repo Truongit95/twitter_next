@@ -1,8 +1,11 @@
+import useGlobal from "../../hook/useGlobal";
 import useUsers from "../../hook/useUsers";
 import Avatar from "../Avatar";
 
 const FollowBar = () => {
+
   const { data: users = [] } = useUsers();
+  
   if (users.length == 0) return null;
 
   return (
