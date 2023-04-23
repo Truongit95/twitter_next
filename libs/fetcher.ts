@@ -1,9 +1,5 @@
-import axios from "axios";
+import axios from 'axios';
 
+const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
-const httpClient = axios.create();
-
-httpClient.defaults.timeout = 6000;
-
-const fetcher = (url: string) => httpClient.get(url).then((res) => res.data);
 export default fetcher;

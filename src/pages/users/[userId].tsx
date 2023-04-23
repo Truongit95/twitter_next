@@ -11,7 +11,6 @@ const UserView = () => {
     const { userId } = router.query;
 
     const { data: fetcherUser, isLoading } = useUser(userId as string);
-
     if (isLoading || !fetcherUser) {
         return (
             <div className="flex justify-center items-center h-full">
